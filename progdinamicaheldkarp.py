@@ -16,26 +16,45 @@ def tsp_held_karp(matriz_distancias):
     todas_cidades = set(range(1, n))
     
     dp = {}
+    predecessores = {}
 
     for i in range(1, n):
         dp[(frozenset([i]), i)] = matriz_distancias[0][i]
+        predecessores[(frozenset([i]), i)] = 0 
 
     for tamanho_subconjunto in range(2, n):
         for subconjunto in itertools.combinations(todas_cidades, tamanho_subconjunto):
             subconjunto_frozen = frozenset(subconjunto)
             for k in subconjunto:
                 subconjunto_sem_k = subconjunto_frozen - {k}
-                dp[(subconjunto_frozen, k)] = min(
-                    dp[(subconjunto_sem_k, m)] + matriz_distancias[m][k]
+                dp[(subconjunto_frozen, k)], predecessores[(subconjunto_frozen, k)] = min(
+                    (
+                        dp[(subconjunto_sem_k, m)] + matriz_distancias[m][k],
+                        m
+                    )
                     for m in subconjunto_sem_k
                 )
 
-    custo_minimo = min(
-        dp[(frozenset(todas_cidades), k)] + matriz_distancias[k][0]
+    custo_minimo, ultima_cidade = min(
+        (
+            dp[(frozenset(todas_cidades), k)] + matriz_distancias[k][0],
+            k
+        )
         for k in range(1, n)
     )
 
-    return custo_minimo
+    melhor_rota = []
+    subconjunto_atual = frozenset(todas_cidades)
+    cidade_atual = ultima_cidade
+    while subconjunto_atual:
+        melhor_rota.append(cidade_atual)
+        predecessor = predecessores[(subconjunto_atual, cidade_atual)]
+        subconjunto_atual = subconjunto_atual - {cidade_atual}
+        cidade_atual = predecessor
+    melhor_rota.append(0)  
+    melhor_rota.reverse()  
+
+    return custo_minimo, melhor_rota
 
 if __name__ == "__main__":
     quantidades_cidades = [4, 6, 8, 10, 12, 14, 16, 18, 20]
@@ -49,8 +68,9 @@ if __name__ == "__main__":
             print(linha)
         
         inicio = time.time()
-        custo_minimo = tsp_held_karp(matriz_distancias)
+        custo_minimo, melhor_rota = tsp_held_karp(matriz_distancias)
         fim = time.time()
         
+        print(f"Melhor rota: {melhor_rota}")
         print(f"Custo mínimo: {custo_minimo}")
         print(f"Tempo gasto: {fim - inicio:.6f} segundos")
