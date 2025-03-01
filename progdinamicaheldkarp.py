@@ -17,11 +17,9 @@ def tsp_held_karp(matriz_distancias):
     
     dp = {}
     predecessores = {}
-
     for i in range(1, n):
         dp[(frozenset([i]), i)] = matriz_distancias[0][i]
         predecessores[(frozenset([i]), i)] = 0 
-
     for tamanho_subconjunto in range(2, n):
         for subconjunto in itertools.combinations(todas_cidades, tamanho_subconjunto):
             subconjunto_frozen = frozenset(subconjunto)
@@ -34,7 +32,6 @@ def tsp_held_karp(matriz_distancias):
                     )
                     for m in subconjunto_sem_k
                 )
-
     custo_minimo, ultima_cidade = min(
         (
             dp[(frozenset(todas_cidades), k)] + matriz_distancias[k][0],
@@ -42,7 +39,6 @@ def tsp_held_karp(matriz_distancias):
         )
         for k in range(1, n)
     )
-
     melhor_rota = []
     subconjunto_atual = frozenset(todas_cidades)
     cidade_atual = ultima_cidade
@@ -53,24 +49,24 @@ def tsp_held_karp(matriz_distancias):
         cidade_atual = predecessor
     melhor_rota.append(0)  
     melhor_rota.reverse()  
-
     return custo_minimo, melhor_rota
 
 if __name__ == "__main__":
     quantidades_cidades = [4, 6, 8, 10, 12, 14, 16, 18, 20]
+    nome_arquivo = "resultadosprogdinamicaheldkarp.txt"
+
+    with open(nome_arquivo, "w") as arquivo:
+        arquivo.write("| Valor de Entrada | Tempo Gasto |\n")
+        arquivo.write("| ---------------- | ----------- |\n")
 
     for n in quantidades_cidades:
-        print(f"\n=== Instância com {n} cidades ===")
         matriz_distancias = gerar_matriz_distancias(n)
-        
-        print("Matriz de distâncias:")
-        for linha in matriz_distancias:
-            print(linha)
         
         inicio = time.time()
         custo_minimo, melhor_rota = tsp_held_karp(matriz_distancias)
         fim = time.time()
         
-        print(f"Melhor rota: {melhor_rota}")
-        print(f"Custo mínimo: {custo_minimo}")
-        print(f"Tempo gasto: {fim - inicio:.6f} segundos")
+        tempo_gasto = fim - inicio
+
+        with open(nome_arquivo, "a") as arquivo:
+            arquivo.write(f"| {n} | {tempo_gasto:.8f} |\n")
