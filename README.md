@@ -1,7 +1,57 @@
 # Travelling Salesman Problem
- Algoritmo desenvolvido para a disciplina de Projeto e análise de algoritmos, sendo o foco principal resolver o problema do caixeiro viajante com algoritmos diferentes.
+Este projeto implementa variadas soluções para o Problema do Caixeiro-Viajante (TSP). Os resultados são salvos em um arquivo de texto e alguns dos algoritmos tem saídas no console para mostrar caminhos tomados.
 
-# Força Bruta Resultados
+## Requisitos
+Para executar este projeto, você precisará de:
+
+**Python 3.x** : Certifique-se de que o Python está instalado em sua máquina. Você pode verificar a versão executando:
+```bash
+python --version
+```
+**Bibliotecas Padrão** : Este projeto usa apenas bibliotecas padrão do Python (random, math, time), então não é necessário instalar dependências adicionais.
+
+## Estrutura do Projeto
+O projeto consiste nos seguintes arquivos:
+```
+Travelling-Salesman-Problem/
+├── .gitattributes
+├── .gitignore
+├── euclidianobitonico.py
+├── forca-bruta.py
+├── progdinamicaheldkarp.py
+├── README.md
+├── resultadoseuclidianobitonico.txt
+├── resultadosforcabruta.txt
+├── resultadosprogdinamicaheldkarp.txt               
+├── resultadosvizinhomaisproximo.txt
+└── vizinhomaisproximo.py           
+```
+
+## Como Executar o Projeto
+**Passo 1: Clonar ou Baixar o Projeto**
+Se você clonou este repositório, navegue até o diretório do projeto:
+```bash
+cd caminho/para/projeto-bitonico
+```
+Se você baixou o projeto como um arquivo ZIP, extraia-o e abra o diretório resultante.
+
+**Passo 2: Executar o Código**
+Execute o script principal usando o Python:
+```bash
+python nomedoalgoritmo.py
+```
+No lugar de 'nomedoalgoritmo.py' insira o algoritmo que você deseja executar, por exemplo: forca-bruta.py.
+
+**Passo 3: Verificar os Resultados**
+Após a execução:
+- Os pontos ou a matriz gerada e o caminho percorrido serão exibidos no console.
+- Um arquivo chamado 'resultadosnomedoalgoritmo.txt' será criado no mesmo diretório, contendo uma tabela com os tempos de execução para diferentes números de pontos ou quantidade de 'vértices'.
+- No lugar de 'resultadosnomedoalgoritmo.txt' será o algoritmo que você executou, por exemplo: resultadosforcabruta.txt.
+
+
+# Resultados
+
+## Força Bruta
 
 Resultado 1
 
@@ -105,7 +155,7 @@ Resultado 10
 
 
 
-# Programação Dinâmica (Held-Karp)
+## Programação Dinâmica (Held-Karp)
 
 Resultado 1
 
@@ -249,7 +299,7 @@ Resultado 10
 
 
 
-# Algoritmo Guloso (Vizinho mais próximo)
+## Algoritmo Guloso (Vizinho mais próximo)
 
 Resultado 1
 
@@ -393,7 +443,7 @@ Resultado 10
 
 
 
-# Programação Dinâmica (Euclidiano Bitônico)
+## Programação Dinâmica (Euclidiano Bitônico)
 
 Resultado 1
 
