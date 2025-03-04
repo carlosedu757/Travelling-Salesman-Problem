@@ -1,7 +1,14 @@
 import random
 import time
+from typing import List, Tuple
 
-def gerar_matriz_distancias(n):
+def gerar_matriz_distancias(n: int) -> List[List[int]]:
+    """
+    Gera uma matriz de distâncias simétrica para um problema do caixeiro viajante.
+    
+    :param n: Número de cidades.
+    :return: Matriz de distâncias entre as cidades.
+    """
     matriz = [[0] * n for _ in range(n)]
     for i in range(n):
         for j in range(i + 1, n):
@@ -10,7 +17,14 @@ def gerar_matriz_distancias(n):
             matriz[j][i] = distancia  
     return matriz
 
-def tsp_vizinho_mais_proximo(matriz_distancias, cidade_inicial=0):
+def tsp_vizinho_mais_proximo(matriz_distancias: List[List[int]], cidade_inicial: int = 0) -> Tuple[List[int], int]:
+    """
+    Resolve o problema do caixeiro viajante utilizando o heurístico do vizinho mais próximo.
+    
+    :param matriz_distancias: Matriz de distâncias entre as cidades.
+    :param cidade_inicial: Cidade de partida.
+    :return: Tupla contendo a melhor rota encontrada e o custo total.
+    """
     n = len(matriz_distancias)
     visitadas = set()  
     rota = []          
